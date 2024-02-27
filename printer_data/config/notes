@@ -1,0 +1,25 @@
+Fysetc buttons: usb-Klipper_rp2040_E6625C4893969633-if00
+
+octopus:  usb-Klipper_stm32f446xx_390040001250535556323420-if00
+
+fysetc input shapper: usb-Klipper_rp2040_E6612C771F5B1C29-if00
+
+install stuff for input shaper
+~/klippy-env/bin/pip install -v numpy
+sudo apt-get install libopenblas-dev
+sudo apt install python3-numpy python3-matplotlib libatlas-base-dev libopenblas-base
+if that dont work then use....
+sudo apt update
+sudo apt install python3-numpy python3-matplotlib
+
+in printer.cfg in section printer set max_accel: to 10000 and max_accel_decel: 10000
+
+use commands TEST_RESONANCES AXIS=X and TEST_RESONANCES AXIS=Y
+to start input shapping
+
+This will generate 2 CSV files (/tmp/resonances_x_*.csv and /tmp/resonances_y_*.csv). These files can be processed with the stand-alone script on a Raspberry Pi. To do that, run the following commands:
+
+~/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
+~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
+
+after this is done then open winscp, go to file in root name tmp, download to pc the two png files.
